@@ -2,12 +2,15 @@ package com.sujan.break_o_last;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class LoginActivity extends AppCompatActivity {
     EditText Username, Password;
@@ -38,9 +41,9 @@ public class LoginActivity extends AppCompatActivity {
                         Username.setText("");
                         Password.setText("");
 
-                        // Intent intent = new Intent(getActivity(), DashboardActivity.class);
-                        // intent.putExtra(EXTRA_MESSAGE, user);
-                        //startActivity(intent);
+                        Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                        intent.putExtra(EXTRA_MESSAGE, user);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(LoginActivity.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
                         Username.setText("");
