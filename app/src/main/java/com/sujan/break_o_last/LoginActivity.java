@@ -3,11 +3,13 @@ package com.sujan.break_o_last;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -16,12 +18,19 @@ public class LoginActivity extends AppCompatActivity {
     EditText Username, Password;
     Button Login;
     String user, pass;
+    LinearLayout myLayout;
+    AnimationDrawable animationDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        myLayout=(LinearLayout)findViewById(R.id.myLayout);
+          animationDrawable=(AnimationDrawable)myLayout.getBackground();
+          animationDrawable.setEnterFadeDuration(4500);
+          animationDrawable.setExitFadeDuration(4500);
+          animationDrawable.start();
 
         Username = findViewById(R.id.username);
         Password = findViewById(R.id.password);

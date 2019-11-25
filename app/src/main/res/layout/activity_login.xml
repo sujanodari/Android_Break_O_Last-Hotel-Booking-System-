@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_vertical"
+    android:background="@drawable/bg_animation"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
@@ -11,11 +13,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:autoSizeMaxTextSize="@dimen/activity_horizontal_margin"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
-        android:text="Login Form"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="BREAK-O-LAST"
+        android:textAllCaps="true"
         android:textColor="@color/colorPrimaryDark"
-        android:textFontWeight="@android:integer/status_bar_notification_info_maxnum" />
+        android:textSize="@dimen/activity_horizontal_margin"
+        android:textStyle="italic" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,13 +31,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="8dp"
+                app:hintTextColor="@color/colorPrimaryDark">
 
                 <EditText
                     android:id="@+id/username"
@@ -46,8 +57,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="8dp"
+                app:hintTextColor="@color/colorPrimaryDark">
 
                 <EditText
                     android:id="@+id/password"
@@ -61,17 +75,71 @@
 
             <Button
                 android:id="@+id/login"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/round_button"
+                android:text="Login" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="48dp"
-                android:layout_marginBottom="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Forget your Password" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" | Click Here"
+                    android:textColor="#fff"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="OR"
+                android:textColor="#fff"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/signup"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/round_button"
                 android:gravity="center"
-                android:text="Login" />
+                android:text="Signup" />
+
+            <com.tomer.fadingtextview.FadingTextView
+                android:id="@+id/fadingText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:texts="@array/text"
+                app:timeout="500" />
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>
