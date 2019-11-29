@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +42,10 @@ public class HomeFragment extends Fragment {
         
         // Adding all the contacts object in list
         hotelList.add(new Hotel("Katayani", "Jhapa", hotel1));
+        hotelList.add(new Hotel("Katayani", "Jhapa", hotel1));
+        hotelList.add(new Hotel("Katayani", "Jhapa", hotel1));
+        hotelList.add(new Hotel("Katayani", "Jhapa", hotel1));
+
         Hotel hotel1 = new Hotel("Katayani", "Jhapa", hotel2);
         hotelList.add(hotel1);
 
@@ -51,7 +56,8 @@ public class HomeFragment extends Fragment {
 
         HotelAdapter hotelAdapter = new HotelAdapter(getActivity(), hotelList);
         recycler_view.setAdapter(hotelAdapter);
-        recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycler_view.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         HotelAdapter hotelAdapter1 = new HotelAdapter(getActivity(), hotelList);
         recycler_view_horizontal.setAdapter(hotelAdapter1);
