@@ -12,13 +12,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.sujan.break_o_last.ui.registration.RegistrationActivity;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class LoginActivity extends AppCompatActivity {
     EditText Username, Password;
     Button Login;
+    TextView tvSignup;
     String user, pass;
     LinearLayout myLayout;
     AnimationDrawable animationDrawable;
@@ -38,8 +42,18 @@ public class LoginActivity extends AppCompatActivity {
         Username = findViewById(R.id.username);
         Password = findViewById(R.id.password);
         loginCheck=findViewById(R.id.loginCheck);
+        tvSignup=findViewById(R.id.tvSignup);
 
         Login = findViewById(R.id.login);
+
+        tvSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+
+                startActivity(intent);
+            }
+        });
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +91,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
     }
         private void setPreferences(){
 
