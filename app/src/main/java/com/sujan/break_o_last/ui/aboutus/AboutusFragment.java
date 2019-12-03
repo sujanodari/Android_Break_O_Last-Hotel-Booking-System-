@@ -10,20 +10,29 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.squareup.picasso.Picasso;
 import com.sujan.break_o_last.R;
 public class AboutusFragment extends Fragment  {
 
     WebView webView;
+    ImageView webImageView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_aboutus, container, false);
+
+        webImageView =view.findViewById(R.id.webImageView);
+       //loading image to the image view from url
+        Picasso.get().load("https://i.imgur.com/vmBnAIS.jpg").resize(400, 110).centerCrop().into(webImageView);
+
         webView  = (WebView) view.findViewById(R.id.webView);
         webView.loadUrl("https://www.facebook.com/");
+
 
         // Enable Javascript
         WebSettings webSettings = webView.getSettings();
