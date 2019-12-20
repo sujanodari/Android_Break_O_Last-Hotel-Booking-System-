@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,8 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     static List<Hotel> hotelList = new ArrayList<>();
+    HorizontalScrollView horizontalScrollView;
+    CheckBox check1,check2,check3;
     int hotel1,hotel2,hotel3,hotel4,hotel5;
 
     private RecyclerView recycler_view, recycler_view_horizontal;
@@ -36,6 +40,12 @@ public class HomeFragment extends Fragment {
         hotel3=  R.drawable.hotel3 ;
         hotel4=  R.drawable.hotel4 ;
         hotel5=  R.drawable.hotel5 ;
+
+        horizontalScrollView=root.findViewById(R.id.horizontalScrollView);
+        check1=root.findViewById(R.id.check1);
+        check3=root.findViewById(R.id.check3);
+        check2=root.findViewById(R.id.check2);
+
 
         recycler_view = root.findViewById(R.id.recycler_view);
         recycler_view_horizontal = root.findViewById(R.id.recycler_view_horizontal);
@@ -63,8 +73,23 @@ public class HomeFragment extends Fragment {
         recycler_view_horizontal.setAdapter(hotelAdapter1);
         recycler_view_horizontal.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         //recycler_view_horizontal.smoothScrollToPosition(hotelAdapter1.getItemCount() -1);
-        recycler_view_horizontal.smoothScrollToPosition(recycler_view_horizontal.getAdapter().getItemCount());
+        //recycler_view_horizontal.smoothScrollToPosition(recycler_view_horizontal.getAdapter().getItemCount());
 
+
+//        horizontalScrollView.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                horizontalScrollView.fullScroll(View.FOCUS_RIGHT);
+//            }
+//        });
+
+        horizontalScrollView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                horizontalScrollView.fullScroll(View.FOCUS_RIGHT);
+
+            }
+        },5000);
 
         return root;
     }
