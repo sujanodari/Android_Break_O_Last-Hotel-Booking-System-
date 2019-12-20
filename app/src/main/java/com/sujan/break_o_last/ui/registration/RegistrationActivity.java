@@ -9,9 +9,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.sujan.break_o_last.R;
 
@@ -36,11 +40,37 @@ public class RegistrationActivity extends AppCompatActivity {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadCamera();
+
+                PopupMenu popupMenu=new PopupMenu(RegistrationActivity.this,profileImage);
+                popupMenu.getMenuInflater().inflate(R.menu.popup,popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                     if(item.getTitle().toString().equals("Open Camera")){
+                         loadCamera();
+                     }
+                        if(item.getTitle().toString().equals("Open Gallary")){
+                            loadGallary();
+                        }
+
+
+                        return true;
+                    }
+                });
+                popupMenu.show();
+
+
             }
         });
 
 
+    }
+
+    private void loadGallary() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 1);
     }
 
 
@@ -69,6 +99,14 @@ public class RegistrationActivity extends AppCompatActivity {
             Bundle extras= data.getExtras();
             Bitmap imageBitmap=(Bitmap)extras.get("data");
             profileImage.setImageBitmap(imageBitmap);
+        }
+        if(requestCode==1 && resultCode==RESULT_OK) {
+
+            if (data == null) {
+                Toast.makeText(this, "Plese select an image", Toast.LENGTH_LONG).show();
+            }
+            Uri uri = data.getData();
+            profileImage.setImageURI(uri);
         }
     }
 
