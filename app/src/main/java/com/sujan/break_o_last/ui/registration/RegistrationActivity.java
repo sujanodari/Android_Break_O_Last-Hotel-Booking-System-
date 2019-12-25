@@ -12,22 +12,101 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupMenu;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sujan.break_o_last.LoginActivity;
 import com.sujan.break_o_last.R;
+
+import java.util.jar.Attributes;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegistrationActivity extends AppCompatActivity {
     CircleImageView profileImage;
+    EditText uName,uPhone,uAddress,uEmail,uPass,uCPass;
+    RadioButton uMale,uFemale,uOthers;
+    Button register;
+    TextView login;
+    String Name,Phone,Address,Email,Cpass,Pass,Gender;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        uName=findViewById(R.id.uname);
+        uPhone=findViewById(R.id.number);
+        uAddress=findViewById(R.id.address);
+        uEmail=findViewById(R.id.email);
+        uPass=findViewById(R.id.upassword);
+        uCPass=findViewById(R.id.cpassword);
+
+        uMale=findViewById(R.id.male);
+        uFemale=findViewById(R.id.female);
+        uOthers=findViewById(R.id.others);
+
+        login=findViewById(R.id.ulogin);
+        register=findViewById(R.id.register);
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(uMale.isChecked()){
+                    Gender="Male";
+                }else if(uFemale.isChecked()){
+                    Gender="Female";
+                }else if(uOthers.isChecked()){
+                    Gender="Others";
+                }
+                Name=uName.getText().toString().trim();
+                Phone=uPhone.getText().toString().trim();
+                Address=uAddress.getText().toString().trim();
+                Email=uEmail.getText().toString().trim();
+                Cpass=uCPass.getText().toString().trim();
+                Pass=uPass.getText().toString().trim();
+
+                if (TextUtils.isEmpty(Name)) {
+                    uName.setError("Enter Username");
+                }
+                if (TextUtils.isEmpty(Phone)) {
+                    uPhone.setError("Enter Phone Number");
+                }
+                if (TextUtils.isEmpty(Address)) {
+                    uAddress.setError("Enter Address");
+                }
+                if (TextUtils.isEmpty(Email)) {
+                    uEmail.setError("Enter Email");
+                }
+                if (TextUtils.isEmpty(Cpass)) {
+                    uCPass.setError("Confirm Password ");
+                }
+                if (TextUtils.isEmpty(Pass)) {
+                    uPass.setError("Enter Password");
+                }
+                if(!Pass.equals(Cpass)){
+                    uCPass.setError("Password Won't match");
+                }
+
+
+            }
+        });
 
 
         profileImage=findViewById(R.id.profileImage);
@@ -103,7 +182,7 @@ public class RegistrationActivity extends AppCompatActivity {
         if(requestCode==1 && resultCode==RESULT_OK) {
 
             if (data == null) {
-                Toast.makeText(this, "Plese select an image", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Please select an image", Toast.LENGTH_LONG).show();
             }
             Uri uri = data.getData();
             profileImage.setImageURI(uri);

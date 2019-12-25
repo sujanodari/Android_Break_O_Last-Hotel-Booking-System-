@@ -133,7 +133,44 @@
                         android:inputType="textEmailAddress"
                         android:selectAllOnFocus="true" />
                 </com.google.android.material.textfield.TextInputLayout>
+                   <RadioGroup
+                       android:layout_marginLeft="20dp"
+                       android:layout_marginTop="8dp"
+                       android:layout_marginRight="20dp"
+                       android:layout_marginBottom="8dp"
+                       app:hintTextColor="@color/colorPrimaryDark"
+                       android:layout_gravity="center"
+                       android:drawablePadding="20dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textSize="@dimen/activity_horizontal_margin"
+                           android:text="Gender"
 
+                       />
+                       <RadioButton
+                           android:id="@+id/male"
+                           app:hintTextColor="@color/colorPrimaryDark"
+                           android:hint="Male"
+                           android:checked="true"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+                       <RadioButton
+                           android:id="@+id/female"
+                           app:hintTextColor="@color/colorPrimaryDark"
+                           android:hint="Female"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+                       <RadioButton
+                           android:id="@+id/others"
+                           app:hintTextColor="@color/colorPrimaryDark"
+                           android:hint="Others"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+                   </RadioGroup>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -144,7 +181,7 @@
                     app:hintTextColor="@color/colorPrimaryDark">
 
                     <EditText
-                        android:id="@+id/password"
+                        android:id="@+id/upassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -211,6 +248,7 @@
                         android:text="Already have account" />
 
                     <TextView
+                        android:id="@+id/ulogin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="  | Login "
