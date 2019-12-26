@@ -76,7 +76,7 @@
                         android:layout_gravity="center"
                         android:drawableLeft="@drawable/ic_person"
                         android:drawablePadding="20dp"
-                        android:hint="Enter Email"
+                        android:hint="Enter Phone Number"
                         android:inputType="textEmailAddress"
                         android:selectAllOnFocus="true" />
                 </com.google.android.material.textfield.TextInputLayout>
