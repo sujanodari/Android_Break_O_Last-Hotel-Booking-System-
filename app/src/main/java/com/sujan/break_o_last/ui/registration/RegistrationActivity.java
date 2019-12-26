@@ -9,6 +9,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,10 +25,16 @@ import android.widget.Toast;
 
 import com.sujan.break_o_last.LoginActivity;
 import com.sujan.break_o_last.R;
+import com.sujan.break_o_last.api.HotelAPI;
+import com.sujan.break_o_last.models.CreateUser;
+import com.sujan.break_o_last.url.BaseUrl;
 
 import java.util.jar.Attributes;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegistrationActivity extends AppCompatActivity {
     CircleImageView profileImage;
@@ -36,7 +43,7 @@ public class RegistrationActivity extends AppCompatActivity {
     Button register;
     TextView login;
     String Name,Phone,Address,Email,Cpass,Pass,Gender;
-
+    Bitmap Profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,43 +75,58 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(uMale.isChecked()){
-                    Gender="Male";
-                }else if(uFemale.isChecked()){
-                    Gender="Female";
-                }else if(uOthers.isChecked()){
-                    Gender="Others";
-                }
-                Name=uName.getText().toString().trim();
-                Phone=uPhone.getText().toString().trim();
-                Address=uAddress.getText().toString().trim();
-                Email=uEmail.getText().toString().trim();
-                Cpass=uCPass.getText().toString().trim();
-                Pass=uPass.getText().toString().trim();
+                    if(uMale.isChecked()){
+                        Gender="Male";
+                    }else if(uFemale.isChecked()){
+                        Gender="Female";
+                    }else if(uOthers.isChecked()){
+                        Gender="Others";
+                    }
+                    Name=uName.getText().toString().trim();
+                    Phone=uPhone.getText().toString().trim();
+                    Address=uAddress.getText().toString().trim();
+                    Email=uEmail.getText().toString().trim();
+                    Cpass=uCPass.getText().toString().trim();
+                    Pass=uPass.getText().toString().trim();
+                         if (TextUtils.isEmpty(Name)) {
+                        uName.setError("Enter Username");
+                    }
+                    if (TextUtils.isEmpty(Phone)) {
+                        uPhone.setError("Enter Phone Number");
+                    }
+                    if (TextUtils.isEmpty(Address)) {
+                        uAddress.setError("Enter Address");
+                    }
+                    if (TextUtils.isEmpty(Email)) {
+                        uEmail.setError("Enter Email");
+                    }
+                    if (TextUtils.isEmpty(Cpass)) {
+                        uCPass.setError("Confirm Password ");
+                    }
+                    if (TextUtils.isEmpty(Pass)) {
+                        uPass.setError("Enter Password");
+                    }
+                    if(!Pass.equals(Cpass)){
+                        uCPass.setError("Password Won't match");
+                    }
 
-                if (TextUtils.isEmpty(Name)) {
-                    uName.setError("Enter Username");
-                }
-                if (TextUtils.isEmpty(Phone)) {
-                    uPhone.setError("Enter Phone Number");
-                }
-                if (TextUtils.isEmpty(Address)) {
-                    uAddress.setError("Enter Address");
-                }
-                if (TextUtils.isEmpty(Email)) {
-                    uEmail.setError("Enter Email");
-                }
-                if (TextUtils.isEmpty(Cpass)) {
-                    uCPass.setError("Confirm Password ");
-                }
-                if (TextUtils.isEmpty(Pass)) {
-                    uPass.setError("Enter Password");
-                }
-                if(!Pass.equals(Cpass)){
-                    uCPass.setError("Password Won't match");
-                }
+                    CreateUser user =new CreateUser(Name,Phone,Address,Email,Pass,Cpass,Gender,"Profile");
+                HotelAPI hotelAPI= BaseUrl.getInstance().create(HotelAPI.class);
+                retrofit2.Call<Void> voidCall=hotelAPI.registerUser(user);
+               // Toast.makeText(RegistrationActivity.this, ""+profileImage, Toast.LENGTH_LONG).show();
+                voidCall.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        Toast.makeText(RegistrationActivity.this, "You have sucessfully registered", Toast.LENGTH_SHORT).show();
 
+                    }
 
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(RegistrationActivity.this, "Error"+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
             }
         });
 
@@ -178,6 +200,7 @@ public class RegistrationActivity extends AppCompatActivity {
             Bundle extras= data.getExtras();
             Bitmap imageBitmap=(Bitmap)extras.get("data");
             profileImage.setImageBitmap(imageBitmap);
+            Profile = imageBitmap;
         }
         if(requestCode==1 && resultCode==RESULT_OK) {
 
