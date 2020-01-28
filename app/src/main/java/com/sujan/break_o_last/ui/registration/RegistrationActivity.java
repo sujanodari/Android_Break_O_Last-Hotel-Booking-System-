@@ -27,11 +27,15 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sujan.break_o_last.DashboardActivity;
 import com.sujan.break_o_last.LoginActivity;
 import com.sujan.break_o_last.R;
 import com.sujan.break_o_last.api.HotelAPI;
+import com.sujan.break_o_last.bll.LoginBll;
+import com.sujan.break_o_last.bll.RegistrationBll;
 import com.sujan.break_o_last.models.CreateUser;
 import com.sujan.break_o_last.responses.ImageResponse;
+import com.sujan.break_o_last.strictMode.StrictModeClass;
 import com.sujan.break_o_last.url.BaseUrl;
 
 import java.io.File;
@@ -48,6 +52,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 public class RegistrationActivity extends AppCompatActivity {
     CircleImageView profileImage;
     EditText uName,uPhone,uAddress,uEmail,uPass,uCPass;
@@ -57,6 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
     String Name,Phone,Address,Email,Cpass,Pass,Gender;
     String Profile;
     Uri ImageUri;
+    public static String message = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,23 +184,44 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void RegisterUser() {
-        CreateUser user =new CreateUser(Name,Phone,Address,Email,Pass,Cpass,Gender,Profile);
-        HotelAPI hotelAPI= BaseUrl.getInstance().create(HotelAPI.class);
-        retrofit2.Call<Void> voidCall=hotelAPI.registerUser(user);
-        // Toast.makeText(RegistrationActivity.this, ""+profileImage, Toast.LENGTH_LONG).show();
-        voidCall.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(RegistrationActivity.this, "You have sucessfully registered", Toast.LENGTH_SHORT).show();
 
+        RegistrationBll registrationBll = new RegistrationBll();
+        StrictModeClass.StrictMode();
+        boolean res=registrationBll.registerUser(Name,Phone,Address,Email,Pass,Cpass,Gender,Profile);
+        Toast.makeText(this, ""+res, Toast.LENGTH_SHORT).show();
+        if (registrationBll.registerUser(Name,Phone,Address,Email,Pass,Cpass,Gender,Profile)) {
+            Toast.makeText(RegistrationActivity.this, "You have sucessfully registered", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            if (message.equals("")) {
+                Toast.makeText(this, "Internal server Error", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "" + message, Toast.LENGTH_SHORT).show();
             }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(RegistrationActivity.this, "Error"+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
 
-            }
-        });
+
+//        CreateUser user =new CreateUser(Name,Phone,Address,Email,Pass,Cpass,Gender,Profile);
+//        HotelAPI hotelAPI= BaseUrl.getInstance().create(HotelAPI.class);
+//        retrofit2.Call<Void> voidCall=hotelAPI.registerUser(user);
+//        // Toast.makeText(RegistrationActivity.this, ""+profileImage, Toast.LENGTH_LONG).show();
+//        voidCall.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                Toast.makeText(RegistrationActivity.this, "You have sucessfully registered", Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(RegistrationActivity.this, "Error"+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
 
 
@@ -270,12 +298,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-    private void StrictMode(){
-        StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-    }
-
-
     private  void saveImageOnly(){
         String image = getRealPathFromUri(ImageUri);
         File file = new File(image);
@@ -284,8 +306,7 @@ public class RegistrationActivity extends AppCompatActivity {
         BaseUrl baseUrl = new BaseUrl();
 
         Call<ImageResponse> call = baseUrl.getInstance().create(HotelAPI.class).uploadImage(body);
-        StrictMode();
-
+        StrictModeClass.StrictMode();
         try {
             Response<ImageResponse> imageModelResponse = call.execute();
             Profile=imageModelResponse.body().getFilename();
