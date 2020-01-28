@@ -1,8 +1,5 @@
 package com.sujan.break_o_last.bll;
 
-import android.content.Context;
-import android.widget.Toast;
-
 import com.sujan.break_o_last.api.HotelAPI;
 import com.sujan.break_o_last.models.CreateUser;
 import com.sujan.break_o_last.responses.LoginResponses;
