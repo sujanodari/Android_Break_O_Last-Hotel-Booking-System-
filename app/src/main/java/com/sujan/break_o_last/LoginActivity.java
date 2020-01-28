@@ -18,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sujan.break_o_last.api.HotelAPI;
+import com.sujan.break_o_last.bll.LoginBll;
 import com.sujan.break_o_last.models.CreateUser;
+import com.sujan.break_o_last.strictMode.StrictModeClass;
 import com.sujan.break_o_last.ui.registration.RegistrationActivity;
 import com.sujan.break_o_last.url.BaseUrl;
 
@@ -36,8 +38,6 @@ public class LoginActivity extends AppCompatActivity {
     LinearLayout myLayout;
     AnimationDrawable animationDrawable;
     CheckBox loginCheck;
-    String Name,Address,Email,Cpass,Gender;
-    Bitmap Profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,34 +73,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 if (!TextUtils.isEmpty(user) && !TextUtils.isEmpty(pass)) {
+                    login();
 
-                    CreateUser rg =new CreateUser(Name,user,Address,Email,pass,Cpass,Gender,"Profile");
-                    HotelAPI hotelAPI= BaseUrl.getInstance().create(HotelAPI.class);
-                    retrofit2.Call<Void> voidCall=hotelAPI.login(rg);
-                    voidCall.enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (!response.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "User not found" , Toast.LENGTH_SHORT).show();
-                                Log.d("error", "error" + response.code());
-                                return;
-                            }
-                            if(loginCheck.isChecked()){
-                                setPreferences();}
-                            Username.setText("");
-                            Password.setText("");
-
-                            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                            intent.putExtra(EXTRA_MESSAGE, user);
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            Toast.makeText(LoginActivity.this, "Error"+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
                 } else {
                     if (TextUtils.isEmpty(user)) {
                         Username.setError("Enter Username");
@@ -116,20 +90,39 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-        private void setPreferences(){
+//        private void setPreferences(){
+//
+//            SharedPreferences sharedPreferences=getSharedPreferences("User",MODE_PRIVATE);
+//            SharedPreferences.Editor editor =sharedPreferences.edit();
+//
+//            editor.putString("username",Username.getText().toString().trim());
+//            editor.putString("password",Password.getText().toString().trim());
+//            editor.commit();
+//
+//            Toast.makeText(this, "Sucessfully Resistered", Toast.LENGTH_SHORT).show();
+//
+//
+//
+//        }
 
-            SharedPreferences sharedPreferences=getSharedPreferences("User",MODE_PRIVATE);
-            SharedPreferences.Editor editor =sharedPreferences.edit();
+    private void login() {
 
-            editor.putString("username",Username.getText().toString().trim());
-            editor.putString("password",Password.getText().toString().trim());
-            editor.commit();
-
-            Toast.makeText(this, "Sucessfully Resistered", Toast.LENGTH_SHORT).show();
-
-
-
+        LoginBll loginBll = new LoginBll();
+        StrictModeClass.StrictMode();
+        boolean res=loginBll.checkUser(user, pass);
+        Toast.makeText(this, ""+res, Toast.LENGTH_SHORT).show();
+        if (loginBll.checkUser(user, pass)) {
+            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+            intent.putExtra(EXTRA_MESSAGE, user);
+            startActivity(intent);
+            finish();
         }
+        else {
+            Toast.makeText(this, "Either PhoneNumber or password is incorrect", Toast.LENGTH_SHORT).show();
+            Username.requestFocus();
+        }
+
+    }
 
 
 }

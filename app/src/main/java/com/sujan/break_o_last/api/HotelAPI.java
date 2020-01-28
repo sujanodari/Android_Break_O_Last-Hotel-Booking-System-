@@ -2,6 +2,7 @@ package com.sujan.break_o_last.api;
 
 import com.sujan.break_o_last.models.CreateUser;
 import com.sujan.break_o_last.responses.ImageResponse;
+import com.sujan.break_o_last.responses.LoginResponses;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -19,7 +20,7 @@ public interface HotelAPI {
 
     //login user
     @POST("users/signin")
-    Call<Void>login(@Body CreateUser user);
+    Call<LoginResponses>login(@Body CreateUser user);
 
     @Multipart
     @POST("users/profile")

@@ -28,7 +28,7 @@ public class AboutusFragment extends Fragment  {
 
         webImageView =view.findViewById(R.id.webImageView);
        //loading image to the image view from url
-        Picasso.get().load("https://i.imgur.com/vmBnAIS.jpg").resize(400, 110).centerCrop().into(webImageView);
+        Picasso.get().load("http://localhost:3012/profile/1577944340296IMG_20191220_140341.jpg").resize(400, 110).centerCrop().into(webImageView);
 
         webView  = (WebView) view.findViewById(R.id.webView);
         webView.loadUrl("https://www.facebook.com/");
