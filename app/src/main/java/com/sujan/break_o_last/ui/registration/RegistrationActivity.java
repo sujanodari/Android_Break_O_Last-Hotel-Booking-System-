@@ -4,14 +4,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.loader.content.CursorLoader;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -27,11 +31,19 @@ import com.sujan.break_o_last.LoginActivity;
 import com.sujan.break_o_last.R;
 import com.sujan.break_o_last.api.HotelAPI;
 import com.sujan.break_o_last.models.CreateUser;
+import com.sujan.break_o_last.responses.ImageResponse;
 import com.sujan.break_o_last.url.BaseUrl;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.jar.Attributes;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +55,8 @@ public class RegistrationActivity extends AppCompatActivity {
     Button register;
     TextView login;
     String Name,Phone,Address,Email,Cpass,Pass,Gender;
-    Bitmap Profile;
+    String Profile;
+    Uri ImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,45 +101,40 @@ public class RegistrationActivity extends AppCompatActivity {
                     Email=uEmail.getText().toString().trim();
                     Cpass=uCPass.getText().toString().trim();
                     Pass=uPass.getText().toString().trim();
-                         if (TextUtils.isEmpty(Name)) {
-                        uName.setError("Enter Username");
+                    if (TextUtils.isEmpty(Name)) {
+                             uName.setError("Enter Username");
+                        return;
                     }
-                    if (TextUtils.isEmpty(Phone)) {
+                    else if (TextUtils.isEmpty(Phone)) {
                         uPhone.setError("Enter Phone Number");
+                        return;
                     }
-                    if (TextUtils.isEmpty(Address)) {
+                   else if (TextUtils.isEmpty(Address)) {
                         uAddress.setError("Enter Address");
+                        return;
                     }
-                    if (TextUtils.isEmpty(Email)) {
+                   else if (TextUtils.isEmpty(Email)) {
                         uEmail.setError("Enter Email");
+                        return;
                     }
-                    if (TextUtils.isEmpty(Cpass)) {
+                   else if (TextUtils.isEmpty(Cpass)) {
                         uCPass.setError("Confirm Password ");
+                        return;
                     }
-                    if (TextUtils.isEmpty(Pass)) {
+                   else if (TextUtils.isEmpty(Pass)) {
                         uPass.setError("Enter Password");
+                        return;
                     }
-                    if(!Pass.equals(Cpass)){
+                   else if(!Pass.equals(Cpass)){
                         uCPass.setError("Password Won't match");
+                        return;
                     }
 
-                    CreateUser user =new CreateUser(Name,Phone,Address,Email,Pass,Cpass,Gender,"Profile");
-                HotelAPI hotelAPI= BaseUrl.getInstance().create(HotelAPI.class);
-                retrofit2.Call<Void> voidCall=hotelAPI.registerUser(user);
-               // Toast.makeText(RegistrationActivity.this, ""+profileImage, Toast.LENGTH_LONG).show();
-                voidCall.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        Toast.makeText(RegistrationActivity.this, "You have sucessfully registered", Toast.LENGTH_SHORT).show();
 
-                    }
+                saveImageOnly();
+                RegisterUser();
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(RegistrationActivity.this, "Error"+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
-                    }
-                });
             }
         });
 
@@ -168,6 +176,31 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
+    private void RegisterUser() {
+        CreateUser user =new CreateUser(Name,Phone,Address,Email,Pass,Cpass,Gender,Profile);
+        HotelAPI hotelAPI= BaseUrl.getInstance().create(HotelAPI.class);
+        retrofit2.Call<Void> voidCall=hotelAPI.registerUser(user);
+        // Toast.makeText(RegistrationActivity.this, ""+profileImage, Toast.LENGTH_LONG).show();
+        voidCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Toast.makeText(RegistrationActivity.this, "You have sucessfully registered", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(RegistrationActivity.this, "Error"+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+
+
+    }
+
     private void loadGallary() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -200,7 +233,8 @@ public class RegistrationActivity extends AppCompatActivity {
             Bundle extras= data.getExtras();
             Bitmap imageBitmap=(Bitmap)extras.get("data");
             profileImage.setImageBitmap(imageBitmap);
-            Profile = imageBitmap;
+            ImageUri= getImageUri();
+
         }
         if(requestCode==1 && resultCode==RESULT_OK) {
 
@@ -209,7 +243,23 @@ public class RegistrationActivity extends AppCompatActivity {
             }
             Uri uri = data.getData();
             profileImage.setImageURI(uri);
+            ImageUri=data.getData();
+
         }
+    }
+
+    private Uri getImageUri() {
+        Uri m_imgUri = null;
+        File m_file;
+        try {
+            SimpleDateFormat m_sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            String m_curentDateandTime = m_sdf.format(new Date());
+            String m_imagePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + m_curentDateandTime + ".jpg";
+            m_file = new File(m_imagePath);
+            m_imgUri = Uri.fromFile(m_file);
+        } catch (Exception p_e) {
+        }
+        return m_imgUri;
     }
 
     private  void loadCamera(){
@@ -218,6 +268,45 @@ public class RegistrationActivity extends AppCompatActivity {
             startActivityForResult(intent,0);
         }
 
+    }
+
+    private void StrictMode(){
+        StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+    }
+
+
+    private  void saveImageOnly(){
+        String image = getRealPathFromUri(ImageUri);
+        File file = new File(image);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("profileImage", file.getName(), requestBody);
+        BaseUrl baseUrl = new BaseUrl();
+
+        Call<ImageResponse> call = baseUrl.getInstance().create(HotelAPI.class).uploadImage(body);
+        StrictMode();
+
+        try {
+            Response<ImageResponse> imageModelResponse = call.execute();
+            Profile=imageModelResponse.body().getFilename();
+            Toast.makeText(this, ""+imageModelResponse.body().getFilename(), Toast.LENGTH_SHORT).show();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            Toast.makeText(this, ""+ e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String getRealPathFromUri(Uri uri){
+        String[] projection = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(getApplicationContext(), uri, projection, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_ind = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_ind);
+        cursor.close();
+        return result;
     }
 
 
