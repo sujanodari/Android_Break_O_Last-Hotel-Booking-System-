@@ -1,5 +1,6 @@
 package com.sujan.break_o_last.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.squareup.picasso.Picasso;
+import com.sujan.break_o_last.LoginActivity;
 import com.sujan.break_o_last.R;
 import com.sujan.break_o_last.api.HotelAPI;
 import com.sujan.break_o_last.models.CreateUser;
@@ -51,7 +53,9 @@ public class ProfileFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Token=null;
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
             }
         });
 
