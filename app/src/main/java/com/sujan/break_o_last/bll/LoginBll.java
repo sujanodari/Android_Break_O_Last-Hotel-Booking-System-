@@ -23,7 +23,7 @@ public class LoginBll {
                 Response<LoginResponses> loginResponse = usersCall.execute();
                 if (loginResponse.isSuccessful() &&
                         loginResponse.body().getStatus().equals("Success")) {
-                         Token += loginResponse.body().getUsertoken();
+                         Token = loginResponse.body().getUsertoken();
                          isSuccess = true;
                 }
             } catch (IOException e) {
