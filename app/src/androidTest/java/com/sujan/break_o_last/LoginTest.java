@@ -14,10 +14,8 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
@@ -36,7 +34,6 @@ import static org.hamcrest.Matchers.is;
                     .perform(typeText("sujan"));
             onView(withId(R.id.login))
                     .perform(click());
-
             // This is another activity, no need to tell Espresso
             assertThat(BaseUrl.Token,is(IsNull.notNullValue()));
             }
