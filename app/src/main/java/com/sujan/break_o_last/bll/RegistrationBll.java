@@ -24,11 +24,13 @@ public class RegistrationBll {
             Response<SignUpResponse> signUpResponseResponse = usersCall.execute();
             if (signUpResponseResponse.isSuccessful() &&
                     signUpResponseResponse.body().getStatus().equals("success")) {
+                BaseUrl.Status=signUpResponseResponse.body().getStatus();
                 isSuccess = true;
             }
             else if (signUpResponseResponse.isSuccessful() &&
                     signUpResponseResponse.body().getStatus().equals("error")) {
                 RegistrationActivity.message = "Phone Number Already Exist, Please enter new one";
+                BaseUrl.Status=signUpResponseResponse.body().getStatus();
             }
         } catch (IOException e) {
             e.printStackTrace();
