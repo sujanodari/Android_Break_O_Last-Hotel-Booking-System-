@@ -1,45 +1,38 @@
 package com.sujan.break_o_last.ui.home;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.HorizontalScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sujan.break_o_last.R;
 import com.sujan.break_o_last.adapters.HotelAdapter;
+import com.sujan.break_o_last.bll.HotelBll;
 import com.sujan.break_o_last.models.Hotel;
+import com.sujan.break_o_last.strictMode.StrictModeClass;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    static List<Hotel> hotelList = new ArrayList<>();
+    public static List<Hotel> hotelList = new ArrayList<>();
     HorizontalScrollView horizontalScrollView;
     CheckBox check1,check2,check3;
-    int hotel1,hotel2,hotel3,hotel4,hotel5;
 
     private RecyclerView recycler_view, recycler_view_horizontal;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        hotel1=  R.drawable.hotel1 ;
-        hotel2=  R.drawable.hotel2 ;
-        hotel3=  R.drawable.hotel3 ;
-        hotel4=  R.drawable.hotel4 ;
-        hotel5=  R.drawable.hotel5 ;
 
         horizontalScrollView=root.findViewById(R.id.horizontalScrollView);
         check1=root.findViewById(R.id.check1);
@@ -49,39 +42,26 @@ public class HomeFragment extends Fragment {
 
         recycler_view = root.findViewById(R.id.recycler_view);
         recycler_view_horizontal = root.findViewById(R.id.recycler_view_horizontal);
-        
-        // Adding all the contacts object in list
-        hotelList.add(new Hotel("Katayani", "Jhapa", hotel1));
-        hotelList.add(new Hotel("Katayani", "Jhapa", hotel1));
-        hotelList.add(new Hotel("Katayani", "Jhapa", hotel1));
-        hotelList.add(new Hotel("Katayani", "Jhapa", hotel1));
 
-        Hotel hotel1 = new Hotel("Katayani", "Jhapa", hotel2);
-        hotelList.add(hotel1);
+        StrictModeClass.StrictMode();
+        HotelBll hotelBll = new HotelBll();
+        hotelBll.getHotel();
 
-        Hotel hotel2 = new Hotel("Katayani", "Jhapa", hotel3);
-        hotelList.add(hotel2);
-        Hotel hotel3 = new Hotel("Katayani", "Jhapa", hotel4);
-        hotelList.add(hotel3);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float density  = getResources().getDisplayMetrics().density;
+        float dpWidth  = outMetrics.widthPixels / density;
+        int columns = Math.round(dpWidth/200);
 
         HotelAdapter hotelAdapter = new HotelAdapter(getActivity(), hotelList);
         recycler_view.setAdapter(hotelAdapter);
-        //recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recycler_view.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recycler_view.setLayoutManager(new GridLayoutManager(getActivity(), columns));
 
         HotelAdapter hotelAdapter1 = new HotelAdapter(getActivity(), hotelList);
         recycler_view_horizontal.setAdapter(hotelAdapter1);
         recycler_view_horizontal.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        //recycler_view_horizontal.smoothScrollToPosition(hotelAdapter1.getItemCount() -1);
-        //recycler_view_horizontal.smoothScrollToPosition(recycler_view_horizontal.getAdapter().getItemCount());
-
-
-//        horizontalScrollView.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                horizontalScrollView.fullScroll(View.FOCUS_RIGHT);
-//            }
-//        });
 
         horizontalScrollView.postDelayed(new Runnable() {
             @Override

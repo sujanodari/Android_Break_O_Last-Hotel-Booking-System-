@@ -2,6 +2,7 @@ package com.sujan.break_o_last.api;
 
 import com.sujan.break_o_last.models.CreateUser;
 import com.sujan.break_o_last.responses.ImageResponse;
+import com.sujan.break_o_last.responses.JSONResponse;
 import com.sujan.break_o_last.responses.LoginResponses;
 import com.sujan.break_o_last.responses.SignUpResponse;
 
@@ -35,5 +36,9 @@ public interface HotelAPI {
 
     @PUT("users/update/password")
     Call<LoginResponses> updatePassword(@Header("Authorization") String token, @Body CreateUser user);
+
+    @GET("hotel/rooms")
+    Call<JSONResponse> getHotelRooms();
+
 
 }

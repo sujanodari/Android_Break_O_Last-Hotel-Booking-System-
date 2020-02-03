@@ -2,7 +2,6 @@ package com.sujan.break_o_last.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.sujan.break_o_last.R;
 import com.sujan.break_o_last.models.Hotel;
 
@@ -22,7 +22,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
 
     Context context;
     List<Hotel> hotelList;
-    int imageid;
 
     public HotelAdapter(Context context, List<Hotel> hotelList) {
         this.context = context;
@@ -42,12 +41,12 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     @SuppressLint("ResourceType")
     @Override
     public void onBindViewHolder(@NonNull HotelViewHolder holder, final int position) {
-
-        final Hotel student = hotelList.get(position);
-
-        holder.imgProfile.setImageResource(student.getImageId());
-        holder.tvName.setText(student.getName());
-        holder.tvAddress.setText(student.getAddress());
+        String path="http://10.0.2.2:3012/room/";
+        final Hotel hotel = hotelList.get(position);
+        Picasso.get().load(path+hotel.getRoomImage()).resize(120, 60).into(holder.imgProfile);
+        holder.tvName.setText(hotel.getHotelName());
+        holder.tvAddress.setText(hotel.getAddress());
+        holder.tvBed.setText(hotel.getNoOfBed());
 
 
 }
@@ -61,7 +60,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
 
     public class HotelViewHolder extends RecyclerView.ViewHolder {
     CircleImageView imgProfile;
-    TextView tvName, tvAddress;
+    TextView tvName, tvAddress,tvBed;
 
 
     public HotelViewHolder(@NonNull View itemView) {
@@ -69,6 +68,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         imgProfile = itemView.findViewById(R.id.imgProfile);
         tvName = itemView.findViewById(R.id.tvName);
         tvAddress = itemView.findViewById(R.id.tvAddress);
+        tvBed = itemView.findViewById(R.id.tvBed);
 
 
     }

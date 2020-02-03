@@ -1,21 +1,65 @@
 package com.sujan.break_o_last.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Hotel {
+    String id,hotelName,roomNo,phone,description,noOfBed,address,roomImage;
 
-    private String name,address;
-    private int imageId;
-
-    static List<Hotel> hotelList = new ArrayList<>();
-
-    public String getName() {
-        return name;
+    public Hotel(String id, String hotelName, String roomNo, String phone, String description, String noOfBed, String address, String roomImage) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.roomNo = roomNo;
+        this.phone = phone;
+        this.description = description;
+        this.noOfBed = noOfBed;
+        this.address = address;
+        this.roomImage = roomImage;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
+    public String getRoomNo() {
+        return roomNo;
+    }
+
+    public void setRoomNo(String roomNo) {
+        this.roomNo = roomNo;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getNoOfBed() {
+        return noOfBed;
+    }
+
+    public void setNoOfBed(String noOfBed) {
+        this.noOfBed = noOfBed;
     }
 
     public String getAddress() {
@@ -26,27 +70,11 @@ public class Hotel {
         this.address = address;
     }
 
-    public int getImageId() {
-        return imageId;
+    public String getRoomImage() {
+        return roomImage;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setRoomImage(String roomImage) {
+        this.roomImage = roomImage;
     }
-
-    public static List<Hotel> getHotelList() {
-        return hotelList;
-    }
-
-    public static void setHotelList(List<Hotel> hotelList) {
-        Hotel.hotelList = hotelList;
-    }
-
-    public Hotel(String name, String address, int imageId) {
-        this.name = name;
-        this.address = address;
-        this.imageId = imageId;
-    }
-
-
 }

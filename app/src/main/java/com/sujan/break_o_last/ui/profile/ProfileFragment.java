@@ -37,7 +37,7 @@ public class ProfileFragment extends Fragment {
     EditText etUPassword;
     Button btnUpdate;
     String url="http://10.0.2.2:3012/profile/";
-    public static  boolean res ;
+    public static  boolean res =false;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_profile, container, false);

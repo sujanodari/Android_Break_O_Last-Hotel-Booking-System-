@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':break-o-last-wear'
 rootProject.name='Break-O-Last'

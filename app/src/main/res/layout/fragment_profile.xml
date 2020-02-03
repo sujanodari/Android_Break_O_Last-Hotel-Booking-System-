@@ -4,27 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_animation"
     tools:context=".DashboardActivity"
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="417dp"
-        android:layout_height="412dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:cardBackgroundColor="#ffffff"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_animation"
+        app:cardBackgroundColor="@color/cardview_shadow_end_color"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="395dp"
+            android:layout_width="366dp"
+            android:layout_height="388dp"
             android:layout_gravity="center">
 
 
@@ -147,24 +150,29 @@
             android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/round_button"
             android:text="Update"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.364"
+            app:layout_constraintHorizontal_bias="0.386"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/logout"
-            android:layout_width="66dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="60dp"
+            android:layout_width="56dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="63dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginBottom="36dp"
             android:text="Logout"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/btnUpdate"
-            app:layout_constraintTop_toBottomOf="@+id/label"
-            app:layout_constraintVertical_bias="0.759" />
+            app:layout_constraintTop_toBottomOf="@+id/etUPassword"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
