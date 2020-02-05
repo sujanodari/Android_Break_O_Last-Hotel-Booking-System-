@@ -1,5 +1,6 @@
 package com.sujan.break_o_last.api;
 
+import com.sujan.break_o_last.models.Booking;
 import com.sujan.break_o_last.models.CreateUser;
 import com.sujan.break_o_last.responses.ImageResponse;
 import com.sujan.break_o_last.responses.JSONResponse;
@@ -9,6 +10,7 @@ import com.sujan.break_o_last.responses.SignUpResponse;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -39,6 +41,12 @@ public interface HotelAPI {
 
     @GET("hotel/rooms")
     Call<JSONResponse> getHotelRooms();
+
+    @POST("hotel/room/book")
+    Call<LoginResponses> getRoomBooked(@Header("Authorization")String token,@Body Booking booking);
+
+    @DELETE("users/delete/user")
+    Call<LoginResponses> getUserDelete(@Header("Authorization")String token);
 
 
 }

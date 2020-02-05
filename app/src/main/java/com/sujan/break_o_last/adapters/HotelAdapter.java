@@ -2,6 +2,7 @@ package com.sujan.break_o_last.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.sujan.break_o_last.R;
 import com.sujan.break_o_last.models.Hotel;
+import com.sujan.break_o_last.ui.home.RoomActivity;
 
 import java.util.List;
 
@@ -47,6 +49,25 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         holder.tvName.setText(hotel.getHotelName());
         holder.tvAddress.setText(hotel.getAddress());
         holder.tvBed.setText(hotel.getNoOfBed());
+
+
+        holder.imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(context, RoomActivity.class);
+                intent.putExtra("Image",hotel.getRoomImage());
+                intent.putExtra("Name",hotel.getHotelName());
+                intent.putExtra("Address",hotel.getAddress());
+                intent.putExtra("Desc",hotel.getDescription());
+                intent.putExtra("Id",hotel.getId());
+                intent.putExtra("BedNo",hotel.getNoOfBed());
+                intent.putExtra("RoomNo",hotel.getRoomNo());
+                intent.putExtra("Phone",hotel.getPhone());
+
+                context.startActivity(intent);
+
+            }
+        });
 
 
 }
