@@ -33,7 +33,7 @@ import static com.sujan.break_o_last.url.BaseUrl.Token;
 
 public class ProfileFragment extends Fragment {
     CircleImageView imgProfile;
-    TextView tvName,tvPhone,tvEmail,tvGender,logout;
+    TextView tvName,tvPhone,tvEmail,tvGender,logout,delete;
     EditText etUPassword;
     Button btnUpdate;
     String url="http://10.0.2.2:3012/profile/";
@@ -49,6 +49,7 @@ public class ProfileFragment extends Fragment {
         logout= root.findViewById(R.id.logout);
         etUPassword= root.findViewById(R.id.etUPassword);
         btnUpdate= root.findViewById(R.id.btnUpdate);
+        delete=root.findViewById(R.id.delete);
 
         getUser();
 
@@ -58,6 +59,14 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Token=null;
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DeleteActivity.class);
                 startActivity(intent);
             }
         });
