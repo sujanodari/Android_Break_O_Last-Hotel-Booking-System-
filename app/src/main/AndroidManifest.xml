@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.profile.DeleteActivity"></activity>
+        <activity android:name=".ui.registration.ForgetActivity"></activity>
+        <activity android:name=".ui.profile.DeleteActivity" />
         <activity android:name=".ui.home.RoomActivity" />
 
         <meta-data

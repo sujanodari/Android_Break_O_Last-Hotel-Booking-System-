@@ -48,5 +48,8 @@ public interface HotelAPI {
     @DELETE("users/delete/user")
     Call<LoginResponses> getUserDelete(@Header("Authorization")String token);
 
+    @PUT("users/update/forget/password")
+    Call<LoginResponses>forgetPassword(@Body CreateUser user);
+
 
 }

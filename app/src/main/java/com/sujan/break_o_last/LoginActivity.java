@@ -1,14 +1,9 @@
 package com.sujan.break_o_last;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,23 +12,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sujan.break_o_last.api.HotelAPI;
-import com.sujan.break_o_last.bll.LoginBll;
-import com.sujan.break_o_last.models.CreateUser;
-import com.sujan.break_o_last.strictMode.StrictModeClass;
-import com.sujan.break_o_last.ui.registration.RegistrationActivity;
-import com.sujan.break_o_last.url.BaseUrl;
+import androidx.appcompat.app.AppCompatActivity;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.sujan.break_o_last.bll.LoginBll;
+import com.sujan.break_o_last.strictMode.StrictModeClass;
+import com.sujan.break_o_last.ui.registration.ForgetActivity;
+import com.sujan.break_o_last.ui.registration.RegistrationActivity;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class LoginActivity extends AppCompatActivity {
     EditText Username, Password;
     Button Login;
-    TextView tvSignup;
+    TextView tvSignup,forget;
     String user="", pass="";
     LinearLayout myLayout;
     AnimationDrawable animationDrawable;
@@ -53,9 +44,18 @@ public class LoginActivity extends AppCompatActivity {
         Password = findViewById(R.id.password);
         loginCheck=findViewById(R.id.loginCheck);
         tvSignup=findViewById(R.id.tvSignup);
+        forget=findViewById(R.id.forget);
 
         Login = findViewById(R.id.login);
 
+        forget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgetActivity.class);
+
+                startActivity(intent);
+            }
+        });
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
