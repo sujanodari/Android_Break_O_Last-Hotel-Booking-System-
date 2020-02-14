@@ -36,19 +36,19 @@ public interface HotelAPI {
     @GET("users/detail")
     Call<CreateUser> getUserDetails(@Header("Authorization")String token);
 
-    @PUT("users/update/password")
+    @PUT("users/")
     Call<LoginResponses> updatePassword(@Header("Authorization") String token, @Body CreateUser user);
 
     @GET("hotel/rooms")
     Call<JSONResponse> getHotelRooms();
 
-    @POST("hotel/room/book")
+    @POST("hotel/rooms/book")
     Call<LoginResponses> getRoomBooked(@Header("Authorization")String token,@Body Booking booking);
 
-    @DELETE("users/delete/user")
+    @DELETE("users/")
     Call<LoginResponses> getUserDelete(@Header("Authorization")String token);
 
-    @PUT("users/update/forget/password")
+    @PUT("users/forget")
     Call<LoginResponses>forgetPassword(@Body CreateUser user);
 
 

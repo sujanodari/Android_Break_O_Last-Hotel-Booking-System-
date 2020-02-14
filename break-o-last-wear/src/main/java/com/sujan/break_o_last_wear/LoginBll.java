@@ -1,14 +1,9 @@
-package com.sujan.break_o_last.bll;
+package com.sujan.break_o_last_wear;
 
-import com.sujan.break_o_last.api.HotelAPI;
-import com.sujan.break_o_last.models.CreateUser;
-import com.sujan.break_o_last.responses.LoginResponses;
-import com.sujan.break_o_last.url.BaseUrl;
 import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Response;
-
-import static com.sujan.break_o_last.url.BaseUrl.Token;
 
 public class LoginBll {
 
@@ -23,7 +18,6 @@ public class LoginBll {
                 Response<LoginResponses> loginResponse = usersCall.execute();
                 if (loginResponse.isSuccessful() &&
                          loginResponse.body().getStatus().equals("Success")) {
-                         Token = loginResponse.body().getUsertoken();
                          isSuccess = true;
                 }
             } catch (IOException e) {

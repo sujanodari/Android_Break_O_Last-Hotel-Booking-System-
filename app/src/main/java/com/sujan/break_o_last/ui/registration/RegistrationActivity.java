@@ -1,23 +1,21 @@
 package com.sujan.break_o_last.ui.registration;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.loader.content.CursorLoader;
-
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.Image;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,13 +25,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sujan.break_o_last.DashboardActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.loader.content.CursorLoader;
+
 import com.sujan.break_o_last.LoginActivity;
 import com.sujan.break_o_last.R;
 import com.sujan.break_o_last.api.HotelAPI;
-import com.sujan.break_o_last.bll.LoginBll;
 import com.sujan.break_o_last.bll.RegistrationBll;
-import com.sujan.break_o_last.models.CreateUser;
 import com.sujan.break_o_last.responses.ImageResponse;
 import com.sujan.break_o_last.strictMode.StrictModeClass;
 import com.sujan.break_o_last.url.BaseUrl;
@@ -42,17 +43,13 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.jar.Attributes;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class RegistrationActivity extends AppCompatActivity {
     CircleImageView profileImage;
@@ -68,7 +65,8 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
+        Gyro();
+        Proximity();
         uName=findViewById(R.id.uname);
         uPhone=findViewById(R.id.number);
         uAddress=findViewById(R.id.address);
@@ -329,7 +327,62 @@ public class RegistrationActivity extends AppCompatActivity {
         cursor.close();
         return result;
     }
+    public void Gyro() {
 
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+
+
+        SensorEventListener gyroEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                if (event.values[2] > 0.5f) {        // anticlockwise
+                    Log.d("gyro", "tilted left");
+                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(RegistrationActivity.this, "tilted left", Toast.LENGTH_SHORT).show();
+                } else if (event.values[2] < -0.5f) {     // clockwise
+                    Toast.makeText(RegistrationActivity.this, "right tilted", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            }
+        };
+//    register listener
+        sensorManager.registerListener(gyroEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
+
+
+    public void Proximity() {
+
+        SensorManager proximitySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor proximoty = proximitySensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+
+
+        SensorEventListener proximityEventListener = new SensorEventListener() {
+
+
+
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float distance = event.values[0];
+                if(distance<=2){
+                    Toast.makeText(RegistrationActivity.this, "Please Keep The Device Far From You", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            }
+        };
+//    register listener
+        proximitySensorManager.registerListener(proximityEventListener, proximoty, SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
 
 }
 
