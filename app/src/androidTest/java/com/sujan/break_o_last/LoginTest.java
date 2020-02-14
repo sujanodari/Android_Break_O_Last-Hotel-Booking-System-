@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.is;
         public void checkNos()
         {
             onView(withId(R.id.username))
-                    .perform(typeText("9817091757"));
+                    .perform(typeText("123412341234"));
             onView(withId(R.id.password))
                     .perform(typeText("sujan"));
             onView(withId(R.id.login))
