@@ -19,6 +19,7 @@ public class LoginBll {
                 if (loginResponse.isSuccessful() &&
                          loginResponse.body().getStatus().equals("Success")) {
                          isSuccess = true;
+                         BaseUrl.Token="Bearer "+loginResponse.body().usertoken;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
