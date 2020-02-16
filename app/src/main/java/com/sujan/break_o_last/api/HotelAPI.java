@@ -33,7 +33,7 @@ public interface HotelAPI {
     @POST("users/profile")
     Call<ImageResponse>uploadImage(@Part MultipartBody.Part image);
 
-    @GET("users/detail")
+    @GET("users")
     Call<CreateUser> getUserDetails(@Header("Authorization")String token);
 
     @PUT("users/")

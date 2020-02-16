@@ -28,9 +28,9 @@ import static junit.framework.Assert.assertTrue;
         public void checkUpdate()
         {
             onView(withId(R.id.uusername))
-                    .perform(typeText("12341234"));
+                    .perform(typeText("9815040894"));
             onView(withId(R.id.upassword))
-                    .perform(typeText("sujan"));
+                    .perform(typeText("sujan123"));
             onView(withId(R.id.update))
                     .perform(click());
             // This is another activity, no need to tell Espresso

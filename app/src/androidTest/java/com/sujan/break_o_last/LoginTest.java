@@ -29,9 +29,9 @@ import static org.hamcrest.Matchers.is;
         public void checkNos()
         {
             onView(withId(R.id.username))
-                    .perform(typeText("123412341234"));
+                    .perform(typeText("9815040894"));
             onView(withId(R.id.password))
-                    .perform(typeText("sujan"));
+                    .perform(typeText("sujan1234"));
             onView(withId(R.id.login))
                     .perform(click());
             // This is another activity, no need to tell Espresso

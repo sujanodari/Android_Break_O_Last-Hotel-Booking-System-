@@ -12,7 +12,7 @@ public class UserDeleteTest {
     @Before
     public void setUp() {
         BaseUrl.Base_Url = "http://127.0.1.1:3012/api/v1/";
-        BaseUrl.Token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk4MTcwOTE3NTciLCJ1c2VybGV2ZWwiOiJzdXBlcmFkbWluIiwiaWF0IjoxNTgwODgyNTM5LCJleHAiOjE1ODA5MTg1Mzl9.QUnhpLLUsK9LW-FmwNRJ9g91wYcbRkcOvsH5Jw3oOUQ";
+        BaseUrl.Token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk4MTIzNDEyMzQiLCJ1c2VybGV2ZWwiOiJzdXBlcmFkbWluIiwiaWF0IjoxNTgxODQzMTc1LCJleHAiOjE1ODE4NzkxNzV9.FsVpATYex5oQUZLP3hb59KcbOiJseI3h46Q1TWaGDOY";
     }
 
     @Test

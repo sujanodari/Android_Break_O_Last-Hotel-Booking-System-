@@ -17,7 +17,7 @@ public class ForgetPasswordTest {
     @Test
     public void ForgetPasswordTest() {
         ForgetPasswordBll forgetPasswordBll = new ForgetPasswordBll();
-        boolean res = forgetPasswordBll.forgetPassword("12341234", "Sujan123");
+        boolean res = forgetPasswordBll.forgetPassword("9815040894", "Sujan123");
         assertTrue(res);
 
     }

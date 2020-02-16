@@ -7,7 +7,6 @@ import org.hamcrest.core.IsNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -20,7 +19,7 @@ public class LoginTest {
     @Test
     public void loginTest(){
         LoginBll loginBll = new LoginBll();
-        loginBll.checkUser("9817091757","Sujan");
+        loginBll.checkUser("9815040894","Sujan");
         assertThat(BaseUrl.Token,is(IsNull.notNullValue()));
         //assertEquals(expectedResult,actualResult);
     }

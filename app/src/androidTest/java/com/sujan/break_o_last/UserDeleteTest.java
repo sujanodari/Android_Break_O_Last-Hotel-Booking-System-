@@ -26,7 +26,7 @@ public class UserDeleteTest {
 
     @Before
     public void setUp() {
-        BaseUrl.Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk4MTcwOTE3NTciLCJ1c2VybGV2ZWwiOiJzdXBlcmFkbWluIiwiaWF0IjoxNTgwODgyNTM5LCJleHAiOjE1ODA5MTg1Mzl9.QUnhpLLUsK9LW-FmwNRJ9g91wYcbRkcOvsH5Jw3oOUQ";
+        BaseUrl.Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk4MTUwNDA4OTQiLCJ1c2VybGV2ZWwiOiJzdXBlcmFkbWluIiwiaWF0IjoxNTgxODQyNTQxLCJleHAiOjE1ODE4Nzg1NDF9.5o2ikXyoeLoq7Q2M8gqcZTGPauaTpVx02q-k1_X72eI";
     }
 
     @Test
