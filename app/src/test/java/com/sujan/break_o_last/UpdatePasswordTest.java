@@ -17,7 +17,7 @@ public class UpdatePasswordTest {
     @Test
     public void loginTest(){
         UpdatePasswordBll updatePasswordBll = new UpdatePasswordBll();
-        boolean res=updatePasswordBll.updatePassword("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk4MTIzNDEyMzQiLCJ1c2VybGV2ZWwiOiJzdXBlcmFkbWluIiwiaWF0IjoxNTgxODQzMTc1LCJleHAiOjE1ODE4NzkxNzV9.FsVpATYex5oQUZLP3hb59KcbOiJseI3h46Q1TWaGDOY","Sujan123");
+        boolean res=updatePasswordBll.updatePassword("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk4MTUwNDA4OTQiLCJ1c2VybGV2ZWwiOiJzdXBlcmFkbWluIiwiaWF0IjoxNTgyNDQyNjk2LCJleHAiOjE1ODI0Nzg2OTZ9.q6k-M3KJ-H7OZKIgkp1T-Zy_Sr9UjRSsnn5efMyWV88","Sujan123");
         assertTrue(res);
 
     }

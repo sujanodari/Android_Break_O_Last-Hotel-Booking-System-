@@ -16,7 +16,7 @@ public class RegistrationTest{
     @Test
     public void registrationTest(){
         RegistrationBll registrationBll = new RegistrationBll();
-        registrationBll.registerUser("Sujan Odari","9815040894","Gatthaghar","odarisujan12@gmail.com","Sujan","Sujan","male","sujan.jpeg");
+        registrationBll.registerUser("Sujan Odari","9815040895","Gatthaghar","odarisujan12@gmail.com","Sujan","Sujan","male","sujan.jpeg");
         assertEquals("success",BaseUrl.Status);
     }
 }

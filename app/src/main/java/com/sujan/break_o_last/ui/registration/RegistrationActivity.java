@@ -371,7 +371,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onSensorChanged(SensorEvent event) {
                 float distance = event.values[0];
                 if(distance<=2){
-                    Toast.makeText(RegistrationActivity.this, "Please Keep The Device Far From You", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(RegistrationActivity.this, "Please Keep The Device Far From You", Toast.LENGTH_SHORT).show();
                 }
 
             }
