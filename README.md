@@ -51,7 +51,7 @@ prospective customers online. This is the fastest and efficient way to interact 
     https://github.com/softwarica-github/t2-backend-api-sujanodari.git
     
     Video Link:
-    https://youtu.be/cjLX5DS1hDA
+    https://youtu.be/WHjIo0ZjvBU
     
     Rest cleint: Retrofit is used.Retrofit is a REST Client for Java and Android. It makes it relatively easy to retrieve and
     upload JSON (or other structured data) via a REST based webservice. In Retrofit you configure which converter is used for
