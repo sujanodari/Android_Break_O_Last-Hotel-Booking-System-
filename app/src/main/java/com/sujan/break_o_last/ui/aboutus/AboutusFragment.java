@@ -64,8 +64,16 @@ public class AboutusFragment extends Fragment  implements OnMapReadyCallback {
         latLongList.add(new LatLong(27.709095, 85.3312232, "Sunsine Dillibazar"));
 
         for (int i = 0; i < latLongList.size(); i++) {
-            googleMap.addMarker(new MarkerOptions().position(new LatLng(latLongList.get(i).getLat(), latLongList.get(i).getLon())).title(latLongList.get(i).getMarker()).snippet("I hope you to be here"));
+
+
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(latLongList.get(i).getLat(), latLongList.get(i).getLon())). title("Break-O-Last Dillibazar").snippet("I hope you to be here"));
             CameraPosition hotel = CameraPosition.builder().target(new LatLng(latLongList.get(i).getLat(), latLongList.get(i).getLon())).zoom(16).bearing(0).tilt(90).build();
+
+
+
+//            googleMap.addMarker(new MarkerOptions().position(new LatLng(latLongList.get(i).getLat(),
+//                    latLongList.get(i).getLon())).title(latLongList.get(i).getMarker()).snippet("I hope you to be here"));
+//            CameraPosition hotel = CameraPosition.builder().target(new LatLng(latLongList.get(i).getLat(), latLongList.get(i).getLon())).zoom(16).bearing(0).tilt(90).build();
 
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(hotel));
             googleMap.getUiSettings().setZoomControlsEnabled(true);

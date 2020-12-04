@@ -21,6 +21,7 @@ Button update;
 TextView tvBack;
 EditText upassword,uusername;
 String user,pass;
+public  static  boolean res;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ String user,pass;
     private void forget() {
         ForgetPasswordBll forgetPasswordBll = new ForgetPasswordBll();
         StrictModeClass.StrictMode();
-        boolean res=forgetPasswordBll.forgetPassword(user, pass);
+        res=forgetPasswordBll.forgetPassword(user, pass);
         if (res) {
             Intent intent = new Intent(ForgetActivity.this, LoginActivity.class);
             startActivity(intent);
