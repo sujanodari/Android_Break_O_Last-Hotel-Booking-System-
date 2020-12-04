@@ -1,17 +1,13 @@
 package com.sujan.break_o_last_wear;
 
 public class Hotel {
-    String id,hotelName,roomNo,phone,description,noOfBed,address,roomImage;
+    String id, userId, hotelId, Date;
 
-    public Hotel(String id, String hotelName, String roomNo, String phone, String description, String noOfBed, String address, String roomImage) {
+    public Hotel(String id, String userId, String hotelId, String date) {
         this.id = id;
-        this.hotelName = hotelName;
-        this.roomNo = roomNo;
-        this.phone = phone;
-        this.description = description;
-        this.noOfBed = noOfBed;
-        this.address = address;
-        this.roomImage = roomImage;
+        this.userId = userId;
+        this.hotelId = hotelId;
+        Date = date;
     }
 
     public String getId() {
@@ -22,59 +18,27 @@ public class Hotel {
         this.id = id;
     }
 
-    public String getHotelName() {
-        return hotelName;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getRoomNo() {
-        return roomNo;
+    public String getHotelId() {
+        return hotelId;
     }
 
-    public void setRoomNo(String roomNo) {
-        this.roomNo = roomNo;
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getDate() {
+        return Date;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getNoOfBed() {
-        return noOfBed;
-    }
-
-    public void setNoOfBed(String noOfBed) {
-        this.noOfBed = noOfBed;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getRoomImage() {
-        return roomImage;
-    }
-
-    public void setRoomImage(String roomImage) {
-        this.roomImage = roomImage;
+    public void setDate(String date) {
+        Date = date;
     }
 }

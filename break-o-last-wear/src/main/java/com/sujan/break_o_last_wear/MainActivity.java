@@ -57,7 +57,7 @@ String user,pass;
         boolean res = loginBll.checkUser(user, pass);
         Toast.makeText(this, "" + res, Toast.LENGTH_SHORT).show();
         if (loginBll.checkUser(user, pass)) {
-            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+            Intent intent = new Intent(MainActivity.this, HotelActivity.class);
             intent.putExtra(EXTRA_MESSAGE, user);
             startActivity(intent);
             finish();

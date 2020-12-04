@@ -54,7 +54,8 @@ public class LoginActivity extends AppCompatActivity {
         loginCheck = findViewById(R.id.loginCheck);
         tvSignup = findViewById(R.id.tvSignup);
         forget = findViewById(R.id.forget);
- StrictModeClass.StrictMode();
+        StrictModeClass.StrictMode();
+        Proximity();
         chekckSharedPreferences();
         Login = findViewById(R.id.login);
 
@@ -111,10 +112,10 @@ public class LoginActivity extends AppCompatActivity {
         SensorEventListener gyroEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                if (event.values[2] > 0.5f) {        // anticlockwise
+                if (event.values[2] > 1.5f) {        // anticlockwise
                     Log.d("gyro", "tilted left");
                     Toast.makeText(LoginActivity.this, "tilted left", Toast.LENGTH_SHORT).show();
-                } else if (event.values[2] < -0.5f) {     // clockwise
+                } else if (event.values[2] < -1.5f) {     // clockwise
                     Toast.makeText(LoginActivity.this, "right tilted", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
                     startActivity(intent);
@@ -132,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void vibrate(){
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE) ;
-        vibrator.vibrate(1000);
+        vibrator.vibrate(3000);
     }
     private void setPreferences() {
 
@@ -183,6 +184,33 @@ public class LoginActivity extends AppCompatActivity {
             Password.setText("" + sharedPreferences.getString("password", ""));
         }
 
+
+    }
+
+    public void Proximity() {
+
+        SensorManager proximitySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor proximoty = proximitySensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+
+
+        SensorEventListener proximityEventListener = new SensorEventListener() {
+
+
+
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float distance = event.values[0];
+                if(distance<=2){
+                   // Toast.makeText(LoginActivity.this, "Please Keep The Device Far From You", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            }
+        };
+//    register listener
+        proximitySensorManager.registerListener(proximityEventListener, proximoty, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 }

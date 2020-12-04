@@ -29,7 +29,7 @@ public class RoomActivity extends AppCompatActivity {
     Button book, back;
     TextView date;
     TextView address, phone, bedNo, desc, hotelName;
-    String path = "http://10.0.2.2:3012/room/";
+    String path = "http://10.0.2.2:3012/profile/";
     DatePickerDialog picker;
     public  static String bookdate=null;
     public  static String id=null;

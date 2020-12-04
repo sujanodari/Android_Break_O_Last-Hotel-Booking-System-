@@ -43,7 +43,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     @SuppressLint("ResourceType")
     @Override
     public void onBindViewHolder(@NonNull HotelViewHolder holder, final int position) {
-        String path="http://10.0.2.2:3012/room/";
+        String path="http://10.0.2.2:3012/profile/";
         final Hotel hotel = hotelList.get(position);
         Picasso.get().load(path+hotel.getRoomImage()).resize(120, 60).into(holder.imgProfile);
         holder.tvName.setText(hotel.getHotelName());

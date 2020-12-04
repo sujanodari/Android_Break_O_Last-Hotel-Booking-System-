@@ -11,11 +11,11 @@ public class HotelBll {
     public void getHotel() {
 
         HotelAPI hotelAPI = BaseUrl.getInstance().create(HotelAPI.class);
-        Call<JSONResponse> hotelCall = hotelAPI.getHotelRooms();
+        Call<JSONResponse> hotelCall = hotelAPI.getHotelRooms(BaseUrl.Token);
         try {
             Response<JSONResponse> hotelCallResponse = hotelCall.execute();
             if (hotelCallResponse.isSuccessful()) {
-                DashboardActivity.hotelList= new ArrayList<>(Arrays.asList(hotelCallResponse.body().getData()));
+                HotelActivity.hotelList= new ArrayList<>(Arrays.asList(hotelCallResponse.body().getData()));
                }
     } catch (IOException e) {
         e.printStackTrace();
